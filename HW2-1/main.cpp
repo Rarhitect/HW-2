@@ -31,5 +31,17 @@ int main()
     v1.push_back(1);
     v1.push_back(1);
     cout << "size = " << v1.size() << "; capacity = " << v1.capacity() << endl;
+    
+    //Часть 3
+    const long int N = 2000000000;
+    vector<int> v2(N);
+    v2.reserve(N);
+    cout << "size = " << v2.size() << "; capacity = " << v2.capacity() << endl;
+    for(auto i = 0; i < N; ++i)
+    {
+        v2[i] = 1;
+    }
+    v2.push_back(1);
+    cout << "size = " << v2.size() << "; capacity = " << v2.capacity() << endl;
     return 0;
 }
