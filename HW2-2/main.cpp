@@ -10,6 +10,16 @@
 
 using namespace std;
 
+template<typename T>
+void sort_time(T object)
+{
+    auto begin = std::chrono::steady_clock::now();
+    std::sort(object.begin(), object.end());
+    auto end = std::chrono::steady_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    std::cout << "Time: " << elapsed.count() << " ns" << std::endl;
+};
+
 int main()
 {
     vector<int> v = {3, 4, 1, 2, 7, 21, 33, 17, 56, 35};
@@ -18,35 +28,20 @@ int main()
     forward_list<int> fl = {3, 4, 1, 2, 7, 21, 33, 17, 56, 35};
     deque<int> d = {3, 4, 1, 2, 7, 21, 33, 17, 56, 35};
     
-    auto begin1 = std::chrono::steady_clock::now();
-    std::sort(v.begin(), v.end());
-    auto end1 = std::chrono::steady_clock::now();
-    auto elapsed1 = std::chrono::duration_cast<std::chrono::nanoseconds>(end1 - begin1);
-    std::cout << "Time for vector: " << elapsed1.count() << " ns" << std::endl;
+    cout << "Vector - ";
+    sort_time(v);
     
-    auto begin2 = std::chrono::steady_clock::now();
-    std::sort(a.begin(), a.end());
-    auto end2 = std::chrono::steady_clock::now();
-    auto elapsed2 = std::chrono::duration_cast<std::chrono::nanoseconds>(end2 - begin2);
-    std::cout << "Time for array: " << elapsed2.count() << " ns" << std::endl;
+    cout << "Array - ";
+    sort_time(a);
     
-//    auto begin3 = std::chrono::steady_clock::now();
-//    std::sort(l.begin(), l.end());
-//    auto end3 = std::chrono::steady_clock::now();
-//    auto elapsed3 = std::chrono::duration_cast<std::chrono::nanoseconds>(end3 - begin3);
-//    std::cout << "Time for list: " << elapsed3.count() << " ns" << std::endl;
-
-//    auto begin4 = std::chrono::steady_clock::now();
-//    std::sort(fl.begin(), fl.end());
-//    auto end4 = std::chrono::steady_clock::now();
-//    auto elapsed4 = std::chrono::duration_cast<std::chrono::nanoseconds>(end4 - begin4);
-//    std::cout << "Time for forwar list: " << elapsed4.count() << " ns" << std::endl;
+//    cout << "List - ";
+//    sort_time(l);
+//    
+//    cout << "Forward list - ";
+//    sort_time(fl);
     
-    auto begin5 = std::chrono::steady_clock::now();
-    std::sort(d.begin(), d.end());
-    auto end5 = std::chrono::steady_clock::now();
-    auto elapsed5 = std::chrono::duration_cast<std::chrono::nanoseconds>(end5 - begin5);
-    std::cout << "Time for deque: " << elapsed5.count() << " ns" << std::endl;
+    cout << "Deque - ";
+    sort_time(d);
     
     return 0;
 }
