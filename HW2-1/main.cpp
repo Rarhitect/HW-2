@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <vector>
+#include <stdexcept>
+#include <exception>
+#include <limits>
 
 using namespace std;
 
@@ -33,15 +36,22 @@ int main()
     cout << "size = " << v1.size() << "; capacity = " << v1.capacity() << endl;
     
     //Часть 3
-    const long int N = 2000000000;
+    const long int N = 100000000000;
     vector<int> v2(N);
     v2.reserve(N);
     cout << "size = " << v2.size() << "; capacity = " << v2.capacity() << endl;
-    for(auto i = 0; i < N; ++i)
+    for(long int i = 0; i < N; ++i)
     {
         v2[i] = 1;
     }
+    try
+    {
     v2.push_back(1);
+    }
+    catch (const runtime_error& err)
+    {
+        cerr << "Out of memory: " << err.what() << endl;
+    }
     cout << "size = " << v2.size() << "; capacity = " << v2.capacity() << endl;
     return 0;
 }
