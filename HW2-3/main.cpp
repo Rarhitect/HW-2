@@ -20,13 +20,20 @@ void fill_shape(const Container & container, Forward_Iterator shape)
 template < auto N, typename Container, typename Forward_Iterator >
 void fill_multi_array(const Container & container, Forward_Iterator multi_array)
 {
-    // Write your code here ...
-
-    // USE: recursive template instantiation of fill_multi_array
-    // USE: std::next(multi_array, i)->begin() in recursion
-    // USE: if constexpr (N > 1) { ... } else { ... }
-
-    // Enjoy debugging!
+    if constexpr (N > 1)
+        {
+            for (auto i: container)
+            {
+                fill_multi_array < N - 1 > (i, (multi_array++) -> begin());
+            }
+        }
+        else
+        {
+            for (auto i: container)
+            {
+                *(multi_array++) = i;
+            }
+        }
 }
 
 template < typename T, auto N, typename Container >
@@ -34,7 +41,7 @@ auto make_multi_array(const Container & container)
 {
     using multi_array_t = boost::multi_array < T, N > ;
 
-    std::vector < multi_array_t::index > shape(N, multi_array_t::index(0));
+    std::vector < typename multi_array_t::index > shape(N, typename multi_array_t::index(0));
 
     fill_shape < N > (container, std::begin(shape));
 
